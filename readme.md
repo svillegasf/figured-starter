@@ -18,6 +18,14 @@ Wait for composer, yarn and Mongo setup to complete.
   
 A basic laravel app should then be available at http://localhost:8080
 
+## Copy .env file
+
+    cp .env.example .env
+    
+## Running composer
+
+    docker-compose exec app composer install
+    
 ## Running laravel commands
 
 Because we are running under an image called app we have to use docker-compose exec. For example:
@@ -28,10 +36,6 @@ Because we are running under an image called app we have to use docker-compose e
 
     docker-compose exec app yarn
 
-## Running composer
-
-    docker-compose exec app composer install
-    
 ## Running tests
 
 As above, we need to run tests using exec, E.g.

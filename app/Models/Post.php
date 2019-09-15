@@ -1,23 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Post;
+use \Eloquent;
+use \App\User;
 
-class User extends Authenticatable
+class Post extends Eloquent
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'title', 'contents', 'published_date','status','user_id'
     ];
 
     /**
@@ -38,8 +34,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts()
+    public function author()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }
+
