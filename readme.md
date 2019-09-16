@@ -47,3 +47,10 @@ Run the seeds to have some example information:
 As above, we need to run tests using exec, E.g.
 
     docker-compose exec app ./vendor/bin/phpunit
+
+## Once the app is running
+
+You can register yourself directly on the app, but there's an available admin user to test:
+
+    email: chava@figured.com
+    password: secret
