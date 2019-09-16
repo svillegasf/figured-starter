@@ -14,7 +14,9 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import CKEditor from '@ckeditor/ckeditor5-vue';
+import moment from 'moment'
 
+Vue.prototype.moment = moment
 Vue.use(CKEditor);
 Vue.use(BootstrapVue)
 // inject global axios instance as http client to Model
@@ -29,6 +31,7 @@ window.Vue = require('vue');
 import App from './views/App.vue'
 import Home from './components/Home/Index.vue'
 import Post from './components/Post/Edit.vue'
+import PostIndex from './components/Post/Index.vue'
 import Register from './components/Register.vue';
 import Login from './components/Login.vue';
 
@@ -60,11 +63,14 @@ const router = new VueRouter({
             path: '/post',
             name: 'post.new',
             component: Post,
+            meta: {
+                auth: true
+            }
         },
         {
             path: '/post/:id',
             name: 'post.view',
-            component: Post,
+            component: PostIndex,
         },
         {
             path: '/post/:id/edit',

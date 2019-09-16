@@ -1,21 +1,24 @@
 <template>
     <div v-if="posts">
-        <b-card-group>
+        <b-card-group columns>
             <b-card
-                :key="post.id" :post="post"
+                :key="post.id"
+                :post="post"
                 v-for="post in posts"
                 :title="post.title"
-                img-src="https://picsum.photos/600/300/?image=25"
+                :img-src="post.image"
                 img-alt="Image"
                 img-top
                 tag="article"
                 style="min-width: 20rem;"
+                :footer="post.publishedInfoText()"
+                footer-tag="footer"
             >
-                <b-card-text>
-                {{post.contents}}
+                <b-card-text v-html="post.contents">
                 </b-card-text>
 
                 <b-button :to="{ name: 'post.view', params: {id: post.id} }" variant="primary">Read</b-button>
+                <b-button :to="{ name: 'post.edit', params: {id: post.id} }" variant="secondary">Edit</b-button>
             </b-card>
         </b-card-group>
     </div>
@@ -30,11 +33,13 @@ export default {
       posts: null,
       search: '',
       searched: [],
+      user: {}
     };
   },
   async mounted()
   {
     this.posts = await Post.get()
+    this.user = this.$auth.user();
   },
   methods: {
   }

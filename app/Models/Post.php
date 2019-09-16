@@ -41,5 +41,10 @@ class Post extends Eloquent
 }
 
 Post::saving(function($post){
+    if(\Auth::check()) {
+        $post->author()->attach(\Auth::user()->id);
+    }
+    //dd($post->tags);
+    $post->tags = json_encode(array_map('trim', explode(',',$post->tags)));
     $post->views = 0;
 });

@@ -28,8 +28,10 @@
         "@ckeditor/ckeditor5-vue": "ckeditor/ckeditor5-vue",
         "@websanova/vue-auth": "websanova/vue-auth",
         "bootstrap-vue": "^2.0.1",
+        "moment": "^2.24.0",
         "vue-api-query": "^1.5.1",
         "vue-axios": "^2.1.4",
+        "vue-bootstrap-datetimepicker": "^5.0.1",
         "vue-resource": "^1.5.1",
         "vue-router": "^3.0.1"
     }

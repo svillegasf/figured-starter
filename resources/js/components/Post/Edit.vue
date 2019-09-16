@@ -10,7 +10,7 @@
         <b-form-input
           id="input-1"
           v-model="post.title"
-          type="title"
+          type="text"
           required
           placeholder="Enter title"
         ></b-form-input>
@@ -20,47 +20,96 @@
         <ckeditor :editor="editor" v-model="post.contents" :config="editorConfig"></ckeditor>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" @click="savePost">Submit</b-button>
+      <b-form-group
+        id="input-group-1"
+        label="Tags:"
+        label-for="input-1"
+        description="Separate each tag with a comma (,)."
+      >
+        <b-form-input
+          id="input-1"
+          v-model="stringTags"
+          type="text"
+          required
+          placeholder="Tags, comma separated"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-1"
+        label="Image URL:"
+        label-for="input-1"
+        description="Image to show on the Post"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="post.image"
+          type="text"
+          required
+          placeholder="Image URL"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-1"
+        label="Publishing Date:"
+        label-for="input-1"
+        description="Time on which your post will be published"
+      >
+      <div class="row">
+        <div class="col-md-12">
+            <date-picker v-model="post.published_date" :config="datepickerConfig"></date-picker>
+            </div>
+      </div>
+      </b-form-group>
+
+      <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ post }}</pre>
-    </b-card>
   </div>
 </template>
 
 <script>
   import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   import Post from '../../models/Post.js';
-
+  import datePicker from 'vue-bootstrap-datetimepicker';
+  import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+  import moment from 'moment'
   export default {
     data() {
       return {
         post: {},
         show: true,
         editor: ClassicEditor,
+        stringTags: '',
         editorData: '<p></p>',
         editorConfig: {
             // The configuration of the rich-text editor.
+        },
+        datepickerConfig: {
+          format: 'MM/DD/YYYY HH:mm',
+          useCurrent: false,
         }
       }
     },
     async mounted()
     {
         if(this.$route.params.id){
-            console.log('is edit')
+            this.post = await Post.find(this.$route.params.id)
+            let tags = JSON.parse(this.post.tags);
+            this.stringTags = tags.join(', ')
         } else {
             this.post = new Post({})
-            console.log('is new')
         }
     },
     methods: {
-      async savePost(evt) {
-          console.log(this.post)
-        await this.post.save();
-      },
       async onSubmit(evt) {
         evt.preventDefault()
+        this.post.tags = this.stringTags
+        if(!this.post.author){
+            this.post.user_id = this.$auth.user().id;
+        }
+        this.post.published_date = moment(this.post.published_date,'MM/DD/YYYY HH:mm').format('YYYY/MM/DD HH:mm:ss')
         await this.post.save();
       },
       onReset(evt) {
@@ -76,6 +125,9 @@
           this.show = true
         })
       }
+    },
+    components: {
+      datePicker
     }
   }
 </script>
