@@ -111,6 +111,8 @@
         }
         this.post.published_date = moment(this.post.published_date,'MM/DD/YYYY HH:mm').format('YYYY/MM/DD HH:mm:ss')
         await this.post.save();
+        this.$router.replace('/post/'+this.post.id+'/edit');
+
       },
       onReset(evt) {
         evt.preventDefault()

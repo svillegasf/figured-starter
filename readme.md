@@ -32,6 +32,12 @@ Because we are running under an image called app we have to use docker-compose e
 
     docker-compose exec app php artisan key:generate 
 
+## Running laravel seeds
+
+Run the seeds to have some example information:
+
+    docker-compose exec app php artisan db:seed 
+
 ## Running yarn
 
     docker-compose exec app yarn

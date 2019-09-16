@@ -21,7 +21,7 @@ class PostsTableSeeder extends Seeder
             $post = Post::create([
                 'user_id' => $user->id,
                 'title' => $faker->text,
-                'contents' => $faker->realText(500),
+                'contents' => $faker->realText(2000),
                 'published_date' => Carbon::now()->subDays(rand(1,90))->format('Y-m-d H:i:s'),
                 'tags' => $faker->words(3),
                 'image' => "https://picsum.photos/600/300/?image=".rand(1,30),

@@ -91,4 +91,11 @@ Vue.use(require('@websanova/vue-auth'), {
 });
 App.router = Vue.router
 
+Vue.filter('striphtml', function (value) {
+    var div = document.createElement("div");
+    div.innerHTML = value;
+    var text = div.textContent || div.innerText || "";
+    return text;
+  });
+
 new Vue(App).$mount('#app');

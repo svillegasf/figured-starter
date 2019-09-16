@@ -16,7 +16,7 @@ class PostsController extends Controller
 
     public function show($id, Request $request)
     {
-        $post = Post::find($id);
+        $post = Post::with(['author'])->find($id);
         return response()->json($post);
     }
 

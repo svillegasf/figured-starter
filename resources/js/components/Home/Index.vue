@@ -14,11 +14,12 @@
                 :footer="post.publishedInfoText()"
                 footer-tag="footer"
             >
-                <b-card-text v-html="post.contents">
+                <b-card-text>
+                    {{post.contents | striphtml | subStr}}
                 </b-card-text>
 
                 <b-button :to="{ name: 'post.view', params: {id: post.id} }" variant="primary">Read</b-button>
-                <b-button :to="{ name: 'post.edit', params: {id: post.id} }" variant="secondary">Edit</b-button>
+                <b-button v-if="user.is_admin" :to="{ name: 'post.edit', params: {id: post.id} }" variant="secondary">Edit</b-button>
             </b-card>
         </b-card-group>
     </div>
@@ -31,8 +32,6 @@ export default {
   data: function() {
     return {
       posts: null,
-      search: '',
-      searched: [],
       user: {}
     };
   },
@@ -42,6 +41,12 @@ export default {
     this.user = this.$auth.user();
   },
   methods: {
+  },
+  filters: {
+  	subStr: function(string) {
+    	return string.substring(0,200) + '...';
+        }
   }
+
 }
 </script>
