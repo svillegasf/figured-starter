@@ -45,6 +45,10 @@ Post::saving(function($post){
         $post->author()->attach(\Auth::user()->id);
     }
     //dd($post->tags);
-    $post->tags = json_encode(array_map('trim', explode(',',$post->tags)));
+    if(!is_array($post->tags)) {
+        $post->tags = json_encode(array_map('trim', explode(',',$post->tags)));
+    } else {
+        $post->tags = json_encode($post->tags);
+    }
     $post->views = 0;
 });

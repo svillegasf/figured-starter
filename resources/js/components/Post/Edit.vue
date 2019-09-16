@@ -64,7 +64,7 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button variant="danger" @click='deletePost'>Delete</b-button>
     </b-form>
   </div>
 </template>
@@ -124,6 +124,11 @@
         this.$nextTick(() => {
           this.show = true
         })
+      },
+      async deletePost() {
+        await this.post.delete()
+        this.$router.replace('/');
+
       }
     },
     components: {
