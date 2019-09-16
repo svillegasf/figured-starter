@@ -655,6 +655,14 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-build-classic@ckeditor/ckeditor5-build-classic":
+  version "12.4.0"
+  resolved "https://codeload.github.com/ckeditor/ckeditor5-build-classic/tar.gz/90505b14aac0fd5f3224db1052d89baab1898a2e"
+
+"@ckeditor/ckeditor5-vue@ckeditor/ckeditor5-vue":
+  version "1.0.0-beta.2"
+  resolved "https://codeload.github.com/ckeditor/ckeditor5-vue/tar.gz/dda648cac14e13aba91efee2668d4dd70f19fbe6"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

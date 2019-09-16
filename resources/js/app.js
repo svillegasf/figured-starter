@@ -13,7 +13,9 @@ import { Model } from 'vue-api-query'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
+Vue.use(CKEditor);
 Vue.use(BootstrapVue)
 // inject global axios instance as http client to Model
 Vue.use(VueAxios, axios);
@@ -61,8 +63,16 @@ const router = new VueRouter({
         },
         {
             path: '/post/:id',
+            name: 'post.view',
+            component: Post,
+        },
+        {
+            path: '/post/:id/edit',
             name: 'post.edit',
             component: Post,
+            meta: {
+                auth: true
+            }
         },
     ],
 });

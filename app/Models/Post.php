@@ -40,3 +40,6 @@ class Post extends Eloquent
     }
 }
 
+Post::saving(function($post){
+    $post->views = 0;
+});

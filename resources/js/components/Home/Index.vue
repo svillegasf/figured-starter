@@ -1,24 +1,23 @@
 <template>
     <div v-if="posts">
-        <b-card
-            :key="post.id" :post="post"
-            v-for="post in posts"
-            :title="post.title"
-            img-src="https://picsum.photos/600/300/?image=25"
-            img-alt="Image"
-            img-top
-            tag="article"
-            style="max-width: 20rem;"
-            class="mb-2"
-        >
-            <b-card-text>
-            {{post.contents}}
-            </b-card-text>
+        <b-card-group>
+            <b-card
+                :key="post.id" :post="post"
+                v-for="post in posts"
+                :title="post.title"
+                img-src="https://picsum.photos/600/300/?image=25"
+                img-alt="Image"
+                img-top
+                tag="article"
+                style="min-width: 20rem;"
+            >
+                <b-card-text>
+                {{post.contents}}
+                </b-card-text>
 
-            <b-button href="#" variant="primary">Read</b-button>
-        </b-card>
-        This is the index page foo
-        {{posts}}
+                <b-button :to="{ name: 'post.view', params: {id: post.id} }" variant="primary">Read</b-button>
+            </b-card>
+        </b-card-group>
     </div>
 </template>
 <script>
@@ -35,9 +34,7 @@ export default {
   },
   async mounted()
   {
-      console.log('=====================')
     this.posts = await Post.get()
-    console.log(this.posts)
   },
   methods: {
   }

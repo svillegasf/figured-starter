@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "ckeditor/ckeditor5-build-classic",
+        "@ckeditor/ckeditor5-vue": "ckeditor/ckeditor5-vue",
         "@websanova/vue-auth": "websanova/vue-auth",
         "bootstrap-vue": "^2.0.1",
         "vue-api-query": "^1.5.1",
