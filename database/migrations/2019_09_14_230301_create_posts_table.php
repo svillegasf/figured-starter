@@ -23,6 +23,9 @@ class CreatePostsTable extends Migration
             $table->text('contents');
             $table->dateTime('published_date')->nullable()->default(null);
             $table->string('user_id')->nullable()->default(null);
+            $table->string('image')->nullable()->default(null);
+            $table->json('tags');
+            $table->integer('views');
             $table->enum('status',['published','draft','inactive'])->nullable()->default('draft');
         });
     }

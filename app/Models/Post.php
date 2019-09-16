@@ -13,7 +13,7 @@ class Post extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'title', 'contents', 'published_date','status','user_id'
+        'title', 'contents', 'published_date','status','user_id','image','views','tags'
     ];
 
     /**

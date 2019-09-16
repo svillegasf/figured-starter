@@ -17,29 +17,30 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                User <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                    Logout -------------
-                                </a>
-
-                                <form id="logout-form" action="#" method="POST" style="display: none;">
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
+                    <b-navbar-nav class="ml-auto">
+                        <b-nav-item>
+                            <router-link :to="{ name: 'home' }">Home</router-link>
+                        </b-nav-item>
+                        <b-nav-item v-if="!$auth.check()">
+                            <router-link :to="{ name: 'login' }">Login</router-link>
+                        </b-nav-item>
+                        <b-nav-item v-if="!$auth.check()">
+                            <router-link :to="{ name: 'register' }">Register</router-link>
+                        </b-nav-item>
+                        <b-nav-item v-if="$auth.check()" class="pull-right">
+                            <a href="#" @click.prevent="$auth.logout()">Logout</a>
+                        </b-nav-item>
+                        <b-nav-form v-if="$auth.check()">
+                            <b-button size="sm" class="my-2 my-sm-0" :to="{ name: 'post.new' }">Create New Post</b-button>
+                        </b-nav-form>
+                    </b-navbar-nav>
                 </div>
             </div>
         </nav>
         <main class="py-4">
-            <router-view></router-view>
+            <b-container>
+                <router-view></router-view>
+            </b-container>
         </main>
     </div>
 </template>

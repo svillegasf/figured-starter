@@ -7,16 +7,28 @@
 require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
+import axios from 'axios'
+import VueAxios from 'vue-axios';
+import { Model } from 'vue-api-query'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(BootstrapVue)
+// inject global axios instance as http client to Model
+Vue.use(VueAxios, axios);
+Model.$http = axios
+axios.defaults.baseURL = 'http://localhost:8080/api';
 
 Vue.use(VueRouter)
-Vue.use(VueResource)
 
 window.Vue = require('vue');
 
 import App from './views/App.vue'
 import Home from './components/Home/Index.vue'
 import Post from './components/Post/Edit.vue'
+import Register from './components/Register.vue';
+import Login from './components/Login.vue';
 
 const router = new VueRouter({
     mode: 'history',
@@ -25,6 +37,22 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register,
+            meta: {
+                auth: false
+            }
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login,
+            meta: {
+                auth: false
+            }
         },
         {
             path: '/post',
@@ -39,8 +67,12 @@ const router = new VueRouter({
     ],
 });
 
-const app = new Vue({
-    el: '#app',
-    components: { App, Home, Post },
-    router,
+Vue.router = router
+Vue.use(require('@websanova/vue-auth'), {
+   auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
+   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
+   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
 });
+App.router = Vue.router
+
+new Vue(App).$mount('#app');

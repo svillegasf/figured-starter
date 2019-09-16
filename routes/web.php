@@ -11,6 +11,6 @@
 |
 */
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/{any}', 'HomeController@index')->where('any', '.*')->middleware('auth');
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');

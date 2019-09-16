@@ -10,7 +10,7 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::all();
+        $posts = Post::with(['author'])->get();
         return response()->json($posts);
     }
 
